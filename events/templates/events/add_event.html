@@ -1,0 +1,24 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+<div class="container">
+    {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+<form method="post" enctype="multipart/form-data" >
+    {% csrf_token %}
+    {% for f in form %}
+    <div class="mb-3">
+        <div class="form-error">{{ f.errors }}</div>
+        <label class="form-label" for="{{f.id_for_label}}">{{f.label}}: </label>{% if f.field.required %} * {% endif %}
+        <p>{{ f }}</p>
+    </div>
+    {% endfor %}
+    <button type="submit">Сохранить</button>
+</form>
+{% endblock %}
+</div>

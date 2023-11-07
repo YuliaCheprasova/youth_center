@@ -1,0 +1,28 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+<div class="container">
+  <h1>{{event.title}}</h1>
+
+  {% if event.poster %}
+    <p><img width=" 300" src="{{event.poster.url}}"> </p>
+  {% endif %}
+  {% if event.data %}
+  <h3>Дата проведения: {{event.data}}</h3>
+  {% else %}
+  <h3>Дата проведения: обсуждается</h3>
+  {% endif %}
+  {% if event.place %}
+  <h3>Место проведения: {{event.place}}</h3>
+  {% else %}
+  <h3>Место проведения: обсуждается</h3>
+  {% endif %}
+  <h3>Руководитель: {{event.main_organizer}}</h3>
+  <h3>Организаторы: {{event.organizers}}</h3>
+  <p>Описание: {{event.description}}</p>
+  {% if event.docs %}
+  <p>Ссылка на диск с файлами мероприятия: <a href="{{ event.docs }}">{{ event.docs }}</a></p>
+  {% endif %}
+  <a class="btn btn-dark" href="{% url 'event_edit' event_slug=event.slug %}">Редактировать мероприятие</a>
+  {% endblock %}
+</div>

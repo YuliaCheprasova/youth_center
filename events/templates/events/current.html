@@ -1,0 +1,14 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+<ul>
+    {% for e in all_events %}
+    <li>
+        <h2>{{e.title}}</h2>
+        <p>{{e.description}}</p>
+        <p><a href="{{ e.get_absolute_url }}">Просмотр мероприятия</a></p>
+        <hr>
+    </li>
+    {% endfor%}
+</ul>
+{% endblock %}

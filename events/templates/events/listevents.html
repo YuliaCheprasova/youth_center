@@ -1,0 +1,48 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-11">
+        </div>
+        <div class="col-1 text-right">
+             <a href="{% url 'add_event' %}">
+                 <button class="btn btn-dark">Добавить мероприятие</button>
+             </a>
+        </div>
+    </div>
+
+<ul>
+    {% for e in page_obj %}
+    {% if e.poster %}
+        <p><img width=" 300" src="{{e.poster.url}}"> </p>
+    {% endif %}
+    <li>
+        <h2>{{e.title}}</h2>
+        {% if e.data %}
+        <p>{{e.data}}</p>
+        {% endif %}
+        {% if e.place %}
+        <p>{{e.place}}</p>
+        {% endif %}
+        <p><a href="{{ e.get_absolute_url }}">Просмотр мероприятия</a></p>
+        <hr>
+    </li>
+    {% endfor%}
+</ul>
+<nav >
+  <ul class="pagination">
+      {% if page_obj.previous_page_number >= 1 %}
+    <li class="page-item"><a class="page-link" href="?page={{page_obj.previous_page_number}}">Предыдущая</a></li>
+      {% endif %}
+      {% if page_obj.has_other_pages %}
+    <li class="page-item"><a class="page-link" href="?page={{page_obj.number}}">{{page_obj.number}}</a></li>
+      {% endif %}
+      {% if page_obj.has_next %}
+    <li class="page-item"><a class="page-link" href="?page={{page_obj.next_page_number}}">Следующая</a></li>
+      {% endif %}
+  </ul>
+</nav>
+
+{% endblock %}
+</div>

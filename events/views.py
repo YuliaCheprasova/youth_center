@@ -2,6 +2,8 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
 
 from .forms import *
 
@@ -58,3 +60,15 @@ def event_edit(request, event_slug):
     else:
         form = AddEventForm(instance=event)
     return render(request, 'events/add_event.html', {'form': form, 'title': "Редактирование мероприятия"})
+
+def login(request):
+    return HttpResponse("Autorization")
+class RegisterUser(CreateView):
+    form_class = RegisterUserForm
+    template_name = 'events/register.html'
+    success_url = reverse_lazy('login')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"]="Регистрация"
+        return context

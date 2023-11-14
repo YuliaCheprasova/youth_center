@@ -10,4 +10,6 @@ urlpatterns = [
     path('event/<slug:event_slug>/', show_event, name="show_event"),
     path('add_event/', add_event, name="add_event"),
     path('event/<slug:event_slug>/edit/', event_edit, name='event_edit'),
+    path('login/', login, name="login"),
+    path('register/', RegisterUser.as_view(), name="register")
 ]

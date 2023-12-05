@@ -17,12 +17,28 @@
   {% else %}
   <h3>Место проведения: обсуждается</h3>
   {% endif %}
-  <h3>Руководитель: {{event.main_organizer}}</h3>
+  <h3>Руководитель: {{event.main_organizer.last_name}} {{event.main_organizer.first_name}}</h3>
   <h3>Организаторы: {{event.organizers}}</h3>
   <p>Описание: {{event.description}}</p>
-  {% if event.docs %}
+  {% if event.docs and perms.events.view_event %}
   <p>Ссылка на диск с файлами мероприятия: <a href="{{ event.docs }}">{{ event.docs }}</a></p>
   {% endif %}
-  <a class="btn btn-dark" href="{% url 'event_edit' event_slug=event.slug %}">Редактировать мероприятие</a>
-  {% endblock %}
+    <div class="row">
+        <div class="col-1 text-left">
+            {% if request.user.username == event.main_organizer.username or user.is_staff %}
+            <a class="btn btn-dark" href="{% url 'event_edit' event_slug=event.slug %}">Редактировать мероприятие</a>
+            {% endif %}
+        </div>
+        <div class="col-10">
+        </div>
+        <div class="col-1 text-right">
+             {% if user.is_superuser %}
+             <form action="{% url 'delete_event' event_slug=event.slug %}" method="post">
+                {% csrf_token %}
+                <button class="btn btn-dark" type="submit">Удалить</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
 </div>
+{% endblock %}

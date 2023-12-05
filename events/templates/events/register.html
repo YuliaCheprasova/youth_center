@@ -1,6 +1,7 @@
 {% extends 'events/base.html' %}
 
 {% block content %}
+<div class="container">
 <h1>{{title}}</h1>
 
 <form method="post">
@@ -8,4 +9,5 @@
     {{form.as_p}}
     <button type="submit">Регистрация</button>
 </form>
+</div>
 {% endblock %}

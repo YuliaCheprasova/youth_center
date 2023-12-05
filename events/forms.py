@@ -1,11 +1,12 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from bootstrap_datepicker_plus.widgets import DateTimePickerInput
 
 from .models import *
 
 class AddEventForm(forms.ModelForm):
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['data'].required = False
@@ -14,6 +15,8 @@ class AddEventForm(forms.ModelForm):
         self.fields['docs'].required = False
         self.fields['description'].required = True
         self.fields['organizers'].required = True
+        self.fields['main_organizer'].label_from_instance = lambda obj: "%s" % obj.get_full_name()
+
 
     class Meta:
         model = Event
@@ -21,7 +24,7 @@ class AddEventForm(forms.ModelForm):
         widgets = {
             'description': forms.Textarea(attrs={'cols': 60, 'rows':10}),
             'organizers': forms.Textarea(attrs={'cols': 60, 'rows': 10}),
-            'data': DateTimePickerInput()
+            'data': DateTimePickerInput(),
         }
 
 class RegisterUserForm(UserCreationForm):
@@ -32,3 +35,7 @@ class RegisterUserForm(UserCreationForm):
     class Meta:
         model = User
         fields=('username', 'email', 'password1', 'password2')
+
+class LoginUserForm(AuthenticationForm):
+    username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
+    password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))

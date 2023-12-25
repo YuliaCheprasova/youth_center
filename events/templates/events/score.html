@@ -1,0 +1,17 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h3>Для того чтобы рассчитать сколько примерно баллов ПГАС вы набрали в этом семестре, заполните все поля и нажмите кнопку</h3>
+<form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Вычислить</button>
+    </form>
+
+    {% if result %}
+        <h3>Результат: {{ result }}</h3>
+        <h4>Порог, который ожидается в этом семестре - 45 баллов</h4>
+    {% endif %}
+</div>
+{% endblock %}

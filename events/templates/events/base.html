@@ -35,6 +35,9 @@
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'archive' %}">Архив мероприятий</a>
               </li>
+                <li class="nav-item">
+                <a class="nav-link" href="{% url 'count_score' %}">Подсчет баллов ПГАС</a>
+              </li>
             </ul>
           </div>
             {% if request.user.is_authenticated %}

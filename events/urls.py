@@ -20,6 +20,7 @@ urlpatterns = [
     path('estimates/', estimates, name="estimates"),
     path('sz/', sz, name="sz"),
     path('report/', report, name="report"),
+    path('pgas/', count_score, name="count_score")
 ]
 
 if settings.DEBUG:

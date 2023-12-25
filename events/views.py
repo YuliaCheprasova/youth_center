@@ -42,6 +42,7 @@ def report(request):
     return render(request, 'events/report.html', {'title': 'Помощник организатора'})
 
 
+
 class Current(ListView):
     paginate_by = 3
     model = Event
@@ -189,3 +190,24 @@ class EventDelete(DeleteView):
     template_name = 'events/show_event.html'
     success_url = reverse_lazy('current')
     slug_url_kwarg = 'event_slug'
+
+
+def count_score(request):
+    result = None
+
+    if request.method == 'POST':
+        form = MathForm(request.POST)
+
+        if form.is_valid():
+            number1 = form.cleaned_data['number1']
+            number2 = form.cleaned_data['number2']
+            number3 = form.cleaned_data['number3']
+            number4 = form.cleaned_data['number4']
+            number5 = form.cleaned_data['number5']
+            number6 = form.cleaned_data['number6']
+            result = 4*number1 + 3*number2 + 2*number3 + 2*number4 + 1.5*number5 + 1*number6
+
+    else:
+        form = MathForm()
+
+    return render(request, 'events/score.html', {'title': 'Подсчет баллов ПГАС', 'form': form, 'result': result})

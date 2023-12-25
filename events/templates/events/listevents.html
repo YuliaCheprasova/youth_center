@@ -7,7 +7,7 @@
         </div>
         <div class="col-1 text-right">
              <a href="{% url 'add_event' %}">
-                 {% if user.is_authenticated %}
+                 {% if user.is_authenticated and perms.events.add_event %}
                  <button class="btn btn-dark">Добавить мероприятие</button>
                  {% endif %}
              </a>
